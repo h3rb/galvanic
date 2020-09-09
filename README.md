@@ -17,6 +17,8 @@ Dependencies
 * nlohmann's JSON.hpp (included) for parsing JSON
 * ZeroTypes (zero.handmade.network)
 
+See framework/install_dependencies for a complete list.
+
 Alternatives to the Above
 =========================
 
@@ -29,6 +31,25 @@ Core Workflows
 
 1. Take in a JSON request
 2. Provide formatted JSON output
+
+
+Setting Up
+==========
+
+To prime your build environment, make sure to enter the framework/ folder and run ./install_dependencies
+
+Next, set up your stuff by running cmake from the framework/ folder.
+
+After primed, you can now run ./rebuild from within the framework/ folder.
+
+In other words:
+
+```
+ $ cd galvanic/framework/
+ $ ./install_dependencies
+ $ cmake
+ $ ./rebuild
+```
 
 
 How to Extend the Framework
