@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ ! -d "build" ] mkdir build ; echo "!.gitignore" > build/.gitignore ; echo "Creating build directory."
+
 rm build/Galvanic
 cd build
 cmake ..
