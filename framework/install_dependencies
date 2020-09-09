@@ -1,0 +1,237 @@
+#!/bin/bash
+
+AWS_DEPS_INSTALL_DIR=/usr/local/
+
+# GOTO for bash, based upon https://stackoverflow.com/a/31269848/5353461
+function goto
+{
+ local label=$1
+ cmd=$(sed -En "/^[[:space:]]*#[[:space:]]*$label:[[:space:]]*#/{:a;n;p;ba};" "$0")
+ eval "$cmd"
+ exit
+}
+
+skipped=${1:-"skipped"}
+
+echo -n -e "On Ubuntu, this script will install dependencies for building Galvanic.\nThis operation requires apt, git and wget.\nThose dependencies are:  MySQL Connector C++, AWSSDK C++ (s3 only)\nYou may wish to modify the AWS_DEPS_INSTALL_DIR variable before execution.\n\nContinue? [y/N] "
+read answer
+if [ "$answer" != "${answer#[Yy]}" ] ;then
+    echo -e "Proceeding."
+#elif [ "$answer" != "${answer#[Ss]}" ] ;then
+#    echo -e "Skipping pre-build."
+#    goto $skipped
+else
+    echo -e "Aborting."
+    exit 1
+fi
+
+sudo apt update
+sudo apt-get install libmysqlcppconn-dev zlib1g-dev openssl libssl-dev curl libcurl4-openssl-dev libpthread-stubs0-dev sanitizer libpulse-dev uuid-dev -y
+
+echo -e "Fetching AWS SDK CPP"
+
+sudo apt upgrade -y
+sudo apt-get install libcurl4-openssl-dev libssl-dev uuid-dev zlib1g-dev libpulse-dev
+
+mkdir dependencies
+cd dependencies
+echo ">>> Current working folder is $PWD"
+
+git clone https://github.com/aws/aws-sdk-cpp
+git clone https://github.com/awslabs/aws-c-common
+git clone https://github.com/awslabs/aws-checksums
+git clone https://github.com/awslabs/aws-c-event-stream
+
+echo -e "Building dependencies (shared)"
+
+echo ___ Current working folder is $PWD
+
+cd aws-c-common
+mkdir build-shared
+cd build-shared
+cmake .. -DBUILD_SHARED_LIBS=ON
+make
+sudo make install
+cd ..
+cd ..
+
+echo ___ Current working folder is $PWD
+
+cd aws-checksums
+mkdir build-shared
+cd build-shared
+cmake .. -DBUILD_SHARED_LIBS=ON
+make
+sudo make install
+cd ..
+cd ..
+
+echo ___ Current working folder is $PWD
+
+cd aws-c-event-stream
+mkdir build-shared
+cd build-shared
+cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_PREFIX_PATH={$AWS_DEPS_INSTALL_DIR} -DCMAKE_INSTALL_PREFIX={$AWS_DEPS_INSTALL_DIR} ../
+make
+sudo make install
+cd ..
+cd ..
+echo ___ Current working folder is $PWD
+
+echo -e "Building dependencies (static)"
+.
+cd aws-c-common
+mkdir build-static
+cd build-static
+cmake .. -DBUILD_SHARED_LIBS=OFF
+make
+sudo make install
+cd ..
+cd ..
+
+echo ___ Current working folder is $PWD
+
+cd aws-checksums
+mkdir build-static
+cd build-static
+cmake .. -DBUILD_SHARED_LIBS=OFF
+make
+sudo make install
+cd ..
+cd ..
+
+echo ___ Current working folder is $PWD
+
+cd aws-c-event-stream
+mkdir build-static
+cd build-static
+cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_PREFIX_PATH={$AWS_DEPS_INSTALL_DIR} -DCMAKE_INSTALL_PREFIX={$AWS_DEPS_INSTALL_DIR} ../
+make
+sudo make install
+cd ..
+cd ..
+
+
+echo -e "Building AWS SDK CPP S3 (shared)"
+
+# build S3 component
+echo ___ Current working folder is $PWD
+
+cd aws-sdk-cpp
+mkdir sdk_build-shared
+cd sdk_build-shared
+sudo cmake -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3" ../
+sudo make
+sudo make install
+cd ..
+cd ..
+
+echo -e "Building AWS SDK CPP S3 (static)"
+
+# build S3 component
+echo ___ Current working folder is $PWD
+
+cd aws-sdk-cpp
+mkdir sdk_build-static
+cd sdk_build-static
+sudo cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3" ../
+sudo make
+sudo make install
+cd ..
+cd ..
+
+
+exit
+
+# everything below this line is a different attempt
+
+git clone https://github.com/aws/aws-sdk-cpp
+
+echo -e "Building first to achieve dependencies."
+
+cd aws-sdk-cpp
+mkdir BUILD
+cd BUILD
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3" -DBUILD_SHARED_LIBS=ON -DENABLE_UNITY_BUILD=ON 
+sudo make clean
+sudo make
+sudo make install
+cd BUILD
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3" -DENABLE_UNITY_BUILD
+cd ..
+cd ..
+
+echo -n -e "Did everything go ok? [y/N] "
+read answer
+if [ "$answer" != "${answer#[Yy]}" ] ;then
+    echo -e "Proceeding."
+else
+    echo -e "Aborting."
+    exit 1
+fi
+
+#skipped:#
+cd dependencies
+
+echo -e "Building third party dependencies required for S3 from version 1.7.0"
+
+echo -e "aws-c-common BUILDING:"
+git clone https://github.com/awslabs/aws-c-common
+cd aws-c-common
+rm -rf build/
+mkdir build && cd build
+# without CMAKE_INSTALL_PREFIX, it will be installed to default system directory.
+cmake .. -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR}
+cd ..
+echo In $PWD commencing make
+sudo make clean
+sudo make -j 12
+sudo make install
+cd ..
+
+echo -e "aws-checksums BUILDING:"
+git clone https://github.com/awslabs/aws-checksums
+cd aws-checksums
+rm -rf build/
+mkdir build && cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR}
+cd ..
+echo In $PWD commencing make
+sudo make clean
+sudo make -j 12
+sudo make install
+cd ..
+
+echo -e "aws-c-event-stream BUILDING:"
+git clone https://github.com/awslabs/aws-c-event-stream
+cd aws-c-event-stream
+rm -rf build/
+mkdir build && cd build
+# aws-c-common and aws-checksums are dependencies of aws-c-event-stream
+# without CMAKE_INSTALL_PREFIX, it will be installed to default system directory.
+cmake .. -DCMAKE_INSTALL_PREFIX=${AWS_DEPS_INSTALL_DIR} -DCMAKE_PREFIX_PATH={$AWS_DEPS_INSTALL_DIR}
+cd ..
+echo In $PWD commencing make
+sudo make clean
+sudo make -j 12
+sudo make install
+cd ..
+
+cd aws-sdk-cpp
+cd BUILD
+cmake ../ -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3" -DBUILD_SHARED_LIBS=ON -DENABLE_UNITY_BUILD=ON 
+sudo make clean
+sudo make
+sudo make install
+cd ..
+cd ..
+
+
+echo -e "DONE WITH AWS SDK BUILDS"
+
+echo -e "Fetching nlohmann_json"
+
+git clone https://github.com/nlohmann/json
+
+
+cd ..
