@@ -47,26 +47,35 @@ In other words:
 ```
  $ cd galvanic/framework/
  $ ./install_dependencies
- $ cmake
+ $ mkdir build
+ $ cd build
+ $ cmake ..
+ $ cd ..
  $ ./rebuild
 ```
+
+How to Invoke Galvanic From the Command Line
+============================================
+
+The "galvanic" executable ends up in the build/ folder.  This can be placed elsewhere.  See 'Security Thoughts' for tips on where (not) to put it.
+
+Once you have your executable, you'll want to try it out with some test inputs.
+
+Command Line Options
+--------------------
 
 
 How to Extend the Framework
 ===========================
 
-
+Note that this document discusses a framework that is a tabula rasa for creating a very fast API.  You will want to customize your galvanic code by adding
+additional API endpoints that are custom to your application's needs.
 
 
 Using PHP-Galvanic, the PHP Wrapper Script
 ==========================================
 
 While not preferred, it is possible to handle your incoming request in PHP first, then provide the data to Galvanic by use of the Command Line (described below)
-
-
-How to Invoke Galvanic From the Command Line
-============================================
-
 
 
 How to use Galvanic as an Apache Module
@@ -77,4 +86,6 @@ TBD
 
 Security Thoughts
 =================
+
+Place the "galvanic" executable in an offline folder.  It's best not to directly install galvanic to a folder like /usr/bin, so that the placement of galvanic is not globally accessible.  You really only want galvanic running in its own space on your webserver, and nowhere that a web browser would be able to access.
 
