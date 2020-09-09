@@ -1,7 +1,7 @@
 Galvanic
 ========
 
-Galvanic is an MIT licensed C++ back-end for creationg JSON-driven APIs.  These APIs can be used in place of:
+Galvanic is an MIT licensed C++ back-end for creating JSON-driven APIs.  These APIs can be used in place of:
 
 * LAMP stack
 * Nodejs web services
