@@ -23,7 +23,7 @@ public:
   text="galvanic --request=[filepath.json]";
  }
  string Fit(const char *in) {
-  Zsstring s(in);
+  Zstring s(in);
   while ( s.length < 25 ) s+=" ";
   return s.value;
  }
