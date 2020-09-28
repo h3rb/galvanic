@@ -1,11 +1,20 @@
+/******************************************************************
+ __     __    _     _       __    _      _   __
+/ /`_  / /\  | |   \ \  /  / /\  | |\ | | | / /`
+\_\_/ /_/--\ |_|__  \_\/  /_/--\ |_| \| |_| \_\_,
+
+ Copyright (c) 2020 H. Elwood Gilliland III
+ This open source framework is available under the MIT License,
+ see LICENSE file accompanying this file for more information
+*******************************************************************/
 #pragma once
 
 #include "zerotypes.h"
 
-
 ONE(CommandLineOption,{})
  Zp<CommandLineOption> base;
  Zstring raw,key,value;
+ Zbool plus;
  Strings options;
  CommandLineOption( char *command, CommandLineOption *base=nullptr ) : ListItem() {
   this->base=base;
@@ -31,7 +40,13 @@ ONE(CommandLineOption,{})
      }
     }
    }
-  } else key=raw;
+  } else {
+   key=raw;
+   if ( key.inside("+") ) plus=true;
+   key("+","");
+   key("--","");
+   key("-","");
+  }
  }
  string asString() {
   Zstring out;
@@ -42,7 +57,7 @@ ONE(CommandLineOption,{})
   out += value;
   return out;
  }
-MANY(CommandLineOption,CommandLineOptionHandle,CommandLineOptionHandles,"CommandLine",CommandLine,{})
+MANY(CommandLineOption,CommandLineOptionHandle,CommandLineOptionHandles,"CommandLineOption",CommandLine,{})
  CommandLineOption base;
  void Main( int argc, char **argv ) {
   base.raw=argv[0];
@@ -57,3 +72,26 @@ MANY(CommandLineOption,CommandLineOptionHandle,CommandLineOptionHandles,"Command
   FOREACH(CommandLineOption,clo) cout << "[" << i++ << "]" << clo->asString() << endl;
  }
 DONE(CommandLineOption);
+
+
+ONE(CommandLineFeature,{})
+ Zstring help;
+ Zstring key,shortkey;
+ virtual void Action( CommandLineOption *in ) {}
+MANY(CommandLineFeature,CommandLineFeatureHandle,CommandLineFeatureHandles,"CommandLineFeature",CommandLineFeatures,{})
+ void Execute( CommandLine *cl ) {
+  EACH(cl->first,CommandLineOption,clo) {
+   FOREACH(CommandLineFeature,clf) {
+    if ( (clf->key.length > 0 && clf->key == clo->key)
+      || (clf->shortkey.length > 0 && clf->shortkey == clo->key) ) {
+     clf->Action(clo);
+     break;
+    }
+   }
+  }
+ }
+DONE(CommandLineFeature);
+
+extern CommandLineFeatures commandLineFeatures;
+
+void PopulateCommandLineFeatures();

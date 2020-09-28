@@ -16,8 +16,9 @@ class Galvanic {
 public:
  CommandLine commandLine;
  int Execute( int argc, char **argv ) {
+  PopulateCommandLineOptions();
   commandLine.Main(argc,argv);
-  commandLine.Print();
+  commandLineFeatures.Execute(&commandLine);
   return 0;
  }
 };
