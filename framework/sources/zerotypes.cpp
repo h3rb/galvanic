@@ -3885,6 +3885,7 @@ int filesize( const char *filepath ) {
     std::ifstream in(filepath, std::ifstream::ate | std::ifstream::binary);
     return in.tellg(); 
   }
+  return -1;
 }
 
 bool string_as_file( const char *sout, const char *filepath ) {
