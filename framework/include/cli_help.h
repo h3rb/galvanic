@@ -20,7 +20,7 @@ public:
   key="help";
   shortkey="h";
   help="Show command line options.";
-  text="galvanic --request=[filepath.json]";
+  text="galvanic --request=[filepath.json]\n\n";
  }
  string Fit(const char *in) {
   Zstring s(in);
@@ -31,8 +31,13 @@ public:
  Strings addendums;
  void Action( CommandLineOption *in ) {
   Zstring output=text;
-  EACH(commandLineFeatures.first,CommandLineFeature,clf) { output+=Fit(clf->key.c_str()); output+=clf->help; output+="\n"; }
-  EACH(addendums.first,String,s) { output+=s->c_str(); output+="\n"; }
+  EACH(commandLineFeatures.first,CommandLineFeature,clf) {
+   output+=Fit(clf->key.c_str()); output+=clf->help; output+="\n";
+   output+=Fit((string("-")+clf->shortkey).c_str()); output+=clf->help; output+="\n";
+  }
+  EACH(addendums.first,String,s) {
+   output+=s->c_str(); output+="\n";
+  }
   cout << output.value << endl;
  }
 
