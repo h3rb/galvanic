@@ -17,7 +17,7 @@ extern Zbool PHP_Request;
 
 class CLI_PHP : public CommandLineFeature {
 public:
- CLI_Request() : CommandLineFeature() {
+ CLI_PHP() : CommandLineFeature() {
   key="php";
   shortkey="p";
   help="Resulting output format for PHP.";
