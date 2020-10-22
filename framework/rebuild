@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-DIR="$(dirname $(readlink -f $0))/$(basename $(readlink -f $0))"
+DIR="$(dirname $(readlink -f $0))"
 echo "Changing to root folder $DIR"
 cd $DIR
 
