@@ -34,11 +34,14 @@ public:
   EACH(commandLineFeatures.first,CommandLineFeature,clf) {
    Zstring equalstext;
    if ( clf->varname.length > 0 ) equalstext=string("=[")+clf->varname+string("]");
-   if ( clf->shortkey.length > 0 || clf->key > 0 ) {
-    output+=Fit(clf->shortkey.length > 0 ? string("-")+clf->shortkey+equalstext+string(", ")+clf->key+equalstext : clf->key).c_str());
+   if ( clf->shortkey.length > 0 && clf->key > 0 ) {
+    output+=Fit( (string("-")+clf->shortkey+equalstext+string(", ")+clf->key+equalstext).c_str());
+   } else if ( clf->shortkey.length > 0 )
+    output+=Fit((string("-")+clf->shortkey).c_str());
+   else if ( clf->key > 0 ) {
+    output+=Fit((string("-")+clf->key).c_str());
    }
    output+=clf->help; output+="\n";
-   output+=Fit((string("-")+clf->shortkey).c_str()); output+=clf->help; output+="\n";
   }
   EACH(addendums.first,String,s) {
    output+=s->c_str(); output+="\n";
