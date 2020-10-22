@@ -1,6 +1,10 @@
 #!/bin/bash
 
-[ ! -d "build" ] mkdir build ; echo "!.gitignore" > build/.gitignore ; echo "Creating build directory."
+if [ ! -d "build" ]
+then
+ echo "Creating build directory."
+ mkdir build ; echo "!.gitignore" > build/.gitignore
+fi
 
 rm build/Galvanic
 cd build
