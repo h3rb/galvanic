@@ -38,7 +38,7 @@ public:
     output+=Fit( (string("-")+clf->shortkey+equalstext+string(", ")+clf->key+equalstext).c_str());
    } else if ( clf->shortkey.length > 0 )
     output+=Fit((string("-")+clf->shortkey).c_str());
-   else if ( clf->key > 0 ) {
+   else if ( clf->key.length > 0 ) {
     output+=Fit((string("-")+clf->key).c_str());
    }
    output+=clf->help; output+="\n";
