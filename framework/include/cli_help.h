@@ -33,7 +33,7 @@ public:
   Zstring output=text;
   EACH(commandLineFeatures.first,CommandLineFeature,clf) {
    Zstring equalstext;
-   if ( clf->varname.length > 0 ) equalstext=string("=[")+clf->varname+string("]");
+   if ( clf->varname.length > 0 ) equalstext=string("=[")+clf->varname+string("]    ");
    if ( clf->shortkey.length > 0 && clf->key.length > 0 ) {
     output+=Fit( (string("-")+clf->shortkey+equalstext+string(", ")+clf->key+equalstext).c_str());
    } else if ( clf->shortkey.length > 0 )
