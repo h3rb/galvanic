@@ -12,7 +12,7 @@
 #include "zerotypes.h"
 
 #include "commandline.h"
-
+#include "version.h"
 
 class CLI_Help : public CommandLineFeature {
 public:
@@ -20,7 +20,10 @@ public:
   key="help";
   shortkey="h";
   help="Show command line options.";
-  text="Usage:  galvanic settings=[filepath.json] request=[filepath.json]\n\n";
+  text="Galvanic: A C++ Server-side RESTful Web Framework\n";
+  text+="Version: ";
+  text+=GALVANIC_VERSION_STRING;
+  text+="\n\nUsage:  galvanic settings=[filepath.json] request=[filepath.json]\n\n";
  }
  string Fit(const char *in) {
   Zstring s(in);
