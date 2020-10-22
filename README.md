@@ -66,7 +66,8 @@ Command Line Options
 --------------------
 
 * help or -h 
-  To view this from the command line, invoke "Galvanic -h" or "Galvanic help", which also displays the version information and git's identity SHA-1.
+
+To view this from the command line, invoke "Galvanic -h" or "Galvanic help", which also displays the version information and git's identity SHA-1.
 
 * settings=[/path/to/file.json]
 
