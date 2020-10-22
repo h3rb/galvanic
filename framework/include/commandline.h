@@ -14,7 +14,7 @@
 ONE(CommandLineOption,{})
  Zp<CommandLineOption> base;
  Zstring raw,key,value;
- Zbool plus,varname;
+ Zbool plus;
  Strings options;
  CommandLineOption( char *command, CommandLineOption *base=nullptr ) : ListItem() {
   this->base=base;
@@ -76,7 +76,7 @@ DONE(CommandLineOption);
 
 ONE(CommandLineFeature,{})
  Zstring help;
- Zstring key,shortkey;
+ Zstring key,shortkey,varname;
  virtual void Action( CommandLineOption *in ) {}
 MANY(CommandLineFeature,CommandLineFeatureHandle,CommandLineFeatureHandles,"CommandLineFeature",CommandLineFeatures,{})
  void Execute( CommandLine *cl ) {
