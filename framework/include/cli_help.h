@@ -20,7 +20,7 @@ public:
   key="help";
   shortkey="h";
   help="Show command line options.";
-  text="galvanic --request=[filepath.json]\n\n";
+  text="Usage:  galvanic settings=[filepath.json] request=[filepath.json]\n\n";
  }
  string Fit(const char *in) {
   Zstring s(in);
