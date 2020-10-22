@@ -14,7 +14,7 @@
 ONE(CommandLineOption,{})
  Zp<CommandLineOption> base;
  Zstring raw,key,value;
- Zbool plus;
+ Zbool plus,varname;
  Strings options;
  CommandLineOption( char *command, CommandLineOption *base=nullptr ) : ListItem() {
   this->base=base;

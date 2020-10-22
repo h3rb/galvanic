@@ -20,6 +20,7 @@ public:
   key="request";
   shortkey="r";
   help="Process a JSON input file containing request data.";
+  varname="filepath";
  }
  void Action( CommandLineOption *in ) {
 

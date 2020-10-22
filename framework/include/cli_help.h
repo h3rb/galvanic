@@ -32,7 +32,10 @@ public:
  void Action( CommandLineOption *in ) {
   Zstring output=text;
   EACH(commandLineFeatures.first,CommandLineFeature,clf) {
-   output+=Fit(clf->key.c_str()); output+=clf->help; output+="\n";
+   Zstring equalstext;
+   if ( clf->varname.length > 0 ) equalstext=string("=[")+clf->varname+string("]");
+   output+=Fit(clf->shortkey != 0 ? (string("-")+clf->shortkey+(equalstext)+string(", ")+clf->key+(equalstext) : clf->key).c_str());
+   output+=clf->help; output+="\n";
    output+=Fit((string("-")+clf->shortkey).c_str()); output+=clf->help; output+="\n";
   }
   EACH(addendums.first,String,s) {
