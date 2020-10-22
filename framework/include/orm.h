@@ -71,9 +71,12 @@ ONE(ORMObject,{})
 MANY_(ORMObject,{})
 DONE(ORMObject);
 
-ONE(ORM,{ Set(&db); tableName=DEFAULT_ORM_TABLE; })
+ONE(ORM,{ Set(&::db); tableName=DEFAULT_ORM_TABLE; })
  Zstring tableName;
  ORM(DB *db) : ListItem() { Set(db); tableName=DEFAULT_ORM_TABLE; }
  Zp<DB> db;
+ void Set(DB *d) { this->db=d; }
 MANY_(ORM,{})
 DONE(ORM);
+
+ORM orm;
