@@ -65,12 +65,12 @@ Once you have your executable, you'll want to try it out with some test inputs.
 Command Line Options
 --------------------
 
-help or -h
+* help or -h 
+  To view this from the command line, invoke "Galvanic -h" or "Galvanic help", which also displays the version information and git's identity SHA-1.
 
-To view this from the command line, invoke "Galvanic -h" or "Galvanic help", which also displays the version information and git's identity SHA-1.
+* settings=[/path/to/file.json]
 
-settings=[/path/to/file.json]
-request=[/path/to/file.json]
+* request=[/path/to/file.json]
 
 
 How to Extend the Framework
