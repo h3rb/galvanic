@@ -20,7 +20,7 @@ add_definitions(-DBUILD_APACHE_MODULE)
 
 # add the binary tree to the search path for include files
 file(GLOB INCLUDES ../framework/include/*.h*)
-file(GLOB SOURCES ../framework/sources/*.cpp)
+file(GLOB SOURCES ../framework/sources/*.cpp a2mod_main.cpp)
 
 include_directories("${PROJECT_SOURCE_DIR} ../framework/include")
 
