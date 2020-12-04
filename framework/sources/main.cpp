@@ -10,8 +10,12 @@
 
 #include "galvanic.h"
 
+#ifndef BUILD_APACHE_MODULE
+
 int main(int argc, char **argv ) {
  InitZeroTypesLibrary();
  Galvanic galvanic;
  return galvanic.Execute( argc, argv );
 }
+
+#endif
