@@ -20,7 +20,7 @@ add_definitions(-DBUILD_APACHE_MODULE)
 
 # add the binary tree to the search path for include files
 file(GLOB INCLUDES ../framework/include/*.h*)
-file(GLOB SOURCES ../framework/sources/*.cpp a2mod_main.cpp)
+file(GLOB SOURCES ../framework/sources/*.cpp)
 
 include_directories("${PROJECT_SOURCE_DIR} ../framework/include")
 
@@ -90,7 +90,7 @@ ENDIF (APRUTIL_FOUND)
 MARK_AS_ADVANCED(APRUTIL_LIBRARY APRUTIL_INCLUDE_DIR)
 
 # Build Target
-add_library(mod_galvanic MODULE ${SOURCES})
+add_library(mod_galvanic MODULE ${SOURCES} a2mod_main.cpp)
 
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES PREFIX "")
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES SUFFIX ".so")
