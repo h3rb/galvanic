@@ -11,3 +11,14 @@
 
 #include "zerotypes.h"
 
+#include "json.hpp"
+using json = nlohmann::json;
+
+class Session {
+ public:
+  json cookies;
+  json getpost;
+  Zstring text;
+};
+
+extern Session session;

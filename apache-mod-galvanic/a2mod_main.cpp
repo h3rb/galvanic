@@ -21,7 +21,7 @@ extern "C" {
 };
 
 // Apache callback to register our hooks
-void foo_hooks(apr_pool_t* pool) {
+void galvanic_hooks(apr_pool_t* pool) {
     ap_hook_handler(
             [](request_rec *req) {
                 return galvanicHandler->RunHandler(req);

@@ -13,7 +13,7 @@ function goto
 
 skipped=${1:-"skipped"}
 
-echo -n -e "On Ubuntu, this script will install dependencies for building Galvanic.\nThis operation requires apt, git and wget.\nThose dependencies are:  MySQL Connector C++, AWSSDK C++ (s3 only)\nYou may wish to modify the AWS_DEPS_INSTALL_DIR variable before execution.\n\nContinue? [y/N] "
+echo -n -e "On Ubuntu, this script will install dependencies for building Galvanic.\nThis operation requires apt, git and wget.\nThose dependencies are:  MySQL Connector C++, AWSSDK C++ (s3 only)\nYou may wish to modify the AWS_DEPS_INSTALL_DIR variable before execution.\nAWS_DEPS_INSTALL_DIR is currently set to: $AWS_DEPS_INSTALL_DIR\nContinue? [y/N] "
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
     echo -e "Proceeding."

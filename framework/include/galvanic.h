@@ -12,6 +12,7 @@
 #include "commandline.h"
 #include "settings.h"
 
+
 class Galvanic {
 public:
  CommandLine commandLine;

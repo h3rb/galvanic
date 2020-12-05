@@ -12,6 +12,7 @@
 #include "zerotypes.h"
 
 #include "commandline.h"
+#include "session.h"
 
 
 class CLI_Request : public CommandLineFeature {
@@ -23,6 +24,6 @@ public:
   varname="filepath";
  }
  void Action( CommandLineOption *in ) {
-
+  
  }
 };
