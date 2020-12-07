@@ -21,7 +21,7 @@ add_definitions(-DBUILD_APACHE_MODULE)
 # add the binary tree to the search path for include files
 file(GLOB INCLUDES ../framework/include/*.h*)
 file(GLOB SOURCES ../framework/sources/*.cpp)
-list(REMOVE_ITEM SOURCES "../framework/sources/main.cpp")
+list(FILTER SOURCES EXCLUDE REGEX ".*main.cpp$")
 
 include_directories("${PROJECT_SOURCE_DIR} ../framework/include")
 
