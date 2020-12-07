@@ -4,6 +4,7 @@
 using std::string;
 
 #include "../framework/include/zerotypes.h"
+#undef DONE
 #include "http_protocol.h"
 
 class GalvanicHandler {
