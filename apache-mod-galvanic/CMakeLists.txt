@@ -97,7 +97,7 @@ ENDIF (APRUTIL_FOUND)
 MARK_AS_ADVANCED(APRUTIL_LIBRARY APRUTIL_INCLUDE_DIR)
 
 # Build Target
-add_library(mod_galvanic MODULE ${SOURCES} a2mod_main.cpp)
+add_library(mod_galvanic MODULE ${SOURCES} a2mod_main.cpp GalvanicHandler.h GalvanicHandler.cpp)
 
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES PREFIX "")
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES SUFFIX ".so")
@@ -107,16 +107,8 @@ ELSE()
     TARGET_LINK_LIBRARIES(mod_galvanic ${APR_LIBRARIES} ${APRUTIL_LIBRARIES} ${APACHE_LIBRARY})
 ENDIF()
 
-#EXECUTABLE
-#link_directories("${AWSSDK_LIB_DIR}")
-#add_executable(${EXEC} ${SOURCES})
-
-#COMPILER
-#target_compile_features(${EXEC} PUBLIC cxx_std_11)
-
 #LINKING
 link_libraries(stdc++fs mysqlcppcon ${AWSSDK_INCLUDE_DIR})
-#target_link_libraries(mod_galvanic PUBLIC mysqlcppconn ${OUTPUT})
 target_include_directories(mod_galvanic PRIVATE mysqlcppconn ${APACHE_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR} ${AWSSDK_INCLUDE_DIR} ../framework/include)
 
 
