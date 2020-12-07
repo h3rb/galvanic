@@ -117,6 +117,6 @@ ENDIF()
 #LINKING
 link_libraries(stdc++fs mysqlcppcon ${AWSSDK_INCLUDE_DIR})
 #target_link_libraries(mod_galvanic PUBLIC mysqlcppconn ${OUTPUT})
-target_include_directories(mod_galvanic PRIVATE mysqlcppconn ${AWSSDK_INCLUDE_DIR} ../framework/include)
+target_include_directories(mod_galvanic PRIVATE mysqlcppconn ${APACHE_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR} ${AWSSDK_INCLUDE_DIR} ../framework/include)
 
 
