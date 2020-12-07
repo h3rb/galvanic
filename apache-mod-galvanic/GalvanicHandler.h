@@ -7,6 +7,7 @@ using std::string;
 #include "../framework/include/galvanic.h"
 #undef DONE // collides with apache2
 #include "http_protocol.h"
+#include "util_script.h"
 
 class GalvanicHandler {
     public:
@@ -88,12 +89,9 @@ class GalvanicHandler {
          if(OK == ret && ap_should_client_block(req)) {
           char* buffer = (char*)apr_pcalloc(req->pool, BLOCKSIZE);
           int len;
-          ap_hard_timeout("GetBody", req);
           while((len=ap_get_client_block(req, buffer, BLOCKSIZE)) > 0) {
             body += string(buffer);
-            ap_reset_timeout(req);
           }
-          ap_kill_timeout(req);
          }
         }
 };

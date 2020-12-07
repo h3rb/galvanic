@@ -16,7 +16,7 @@
 class Galvanic {
 public:
 #if defined (BUILD_APACHE_MODULE)
-std::string Execute( Strings &HEADERS, Strings &POST, Zstring &body ) {
+std::string Execute( Strings &ELEMENTS, Strings &HEADERS, Strings &POST, Zstring &body ) {
  return string("It works!");
 }
 #else
