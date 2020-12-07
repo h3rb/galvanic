@@ -7,7 +7,10 @@
 
 auto galvanicHandler = std::make_unique<GalvanicHandler>();
 
-extern "C" {
+#ifdef __cplusplus
+extern "C"
+{
+#endif
     void galvanic_hooks(apr_pool_t* pool);
     module AP_MODULE_DECLARE_DATA foo_module = {
         STANDARD20_MODULE_STUFF,
@@ -18,7 +21,9 @@ extern "C" {
         NULL,
         galvanic_hooks
     };
-};
+#ifdef __cplusplus
+}
+#endif
 
 // Apache callback to register our hooks
 void galvanic_hooks(apr_pool_t* pool) {
