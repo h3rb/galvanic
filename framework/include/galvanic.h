@@ -15,6 +15,11 @@
 
 class Galvanic {
 public:
+#if defined (BUILD_APACHE_MODULE)
+std::string Execute( Strings &HEADERS, Strings &POST, Zstring &body )
+ return string("It works!");
+)
+#else
  CommandLine commandLine;
  int Execute( int argc, char **argv ) {
   PopulateCommandLineFeatures();
@@ -22,4 +27,5 @@ public:
   commandLineFeatures.Execute(&commandLine);
   return 0;
  }
+#endif
 };

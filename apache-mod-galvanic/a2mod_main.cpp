@@ -4,8 +4,6 @@
 
 #include "GalvanicHandler.h"
 
-std::unique_ptr<GalvanicHandler> galvanicHandler = std::make_unique<GalvanicHandler>();
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -29,7 +27,7 @@ extern "C"
 void galvanic_hooks(apr_pool_t* pool) {
     ap_hook_handler(
             [](request_rec *req) {
-                return galvanicHandler->RunHandler(req);
+                return galvanicHandler.RunHandler(req);
             },
             NULL, NULL, APR_HOOK_MIDDLE);
 }

@@ -24,3 +24,5 @@ class GalvanicHandler {
         string module_name = "galvanic";
         Zstring http_out;
 };
+
+extern GalvanicHandler galvanicHandler;
