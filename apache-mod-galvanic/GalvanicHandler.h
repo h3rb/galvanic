@@ -11,6 +11,9 @@ using std::string;
 #include "http_protocol.h"
 #include "util_script.h"
 
+int headers_table_do(void* rec, const char* key, const char* value);
+int get_table_do(void* rec, const char* key, const char* value);
+
 class GalvanicHandler {
     public:
         int RunHandler(request_rec *req) {
@@ -50,16 +53,8 @@ class GalvanicHandler {
          ELEMENTS.Append(new String("log_id",req->log_id));
          ELEMENTS.Append(new String("the_request",req->the_request));
         }
-        int headers_table_do(void* rec, const char* key, const char* value) {
-         HEADERS.Append(new String(key,value));
-         return 1;
-        }
         void GetHeaders(request_rec *req) {
          apr_table_do(headers_table_do, req, req->headrs_in, NULL);
-        }
-        int get_table_do(void* rec, const char* key, const char* value) {
-         GET.Append(new String(key,value));
-         return 1;
         }
         void GetGet(request_rec *req) {
          apr_table_t *G = NULL;
