@@ -21,9 +21,11 @@ add_definitions(-DBUILD_APACHE_MODULE)
 # add the binary tree to the search path for include files
 file(GLOB INCLUDES ../framework/include/*.h*)
 file(GLOB SOURCES ../framework/sources/*.cpp)
-list(REMOVE_ITEM SOURCES ../framework/sources/main.cpp)
+list(REMOVE_ITEM SOURCES "../framework/sources/main.cpp")
 
 include_directories("${PROJECT_SOURCE_DIR} ../framework/include")
+
+set(MODULE_SOURCES a2mod_main.cpp GalvanicHandler.h GalvanicHandler.cpp)
 
 #Threading, sometimes causes issue with AWS if this isn't here.
 set(CMAKE_THREAD_LIBS_INIT "-lpthread")
@@ -98,7 +100,7 @@ ENDIF (APRUTIL_FOUND)
 MARK_AS_ADVANCED(APRUTIL_LIBRARY APRUTIL_INCLUDE_DIR)
 
 # Build Target
-add_library(mod_galvanic MODULE ${SOURCES} a2mod_main.cpp GalvanicHandler.h GalvanicHandler.cpp)
+add_library(mod_galvanic MODULE ${SOURCES} ${MODULE_SOURCES})
 
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES PREFIX "")
 SET_TARGET_PROPERTIES(mod_galvanic PROPERTIES SUFFIX ".so")
