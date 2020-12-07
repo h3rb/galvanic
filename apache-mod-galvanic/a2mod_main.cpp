@@ -3,13 +3,13 @@
 #include <memory>
 
 #include "GalvanicHandler.h"
-#include "http_config.h"
 
 auto galvanicHandler = std::make_unique<GalvanicHandler>();
 
 #ifdef __cplusplus
 extern "C"
 {
+#include "http_config.h"
 #endif
     void galvanic_hooks(apr_pool_t* pool);
     module AP_MODULE_DECLARE_DATA foo_module = {
