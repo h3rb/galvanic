@@ -54,7 +54,7 @@ class GalvanicHandler {
          ELEMENTS.Append(new String("the_request",req->the_request));
         }
         void GetHeaders(request_rec *req) {
-         apr_table_do(headers_table_do, req, req->headrs_in, NULL);
+         apr_table_do(headers_table_do, req, req->headers_in, NULL);
         }
         void GetGet(request_rec *req) {
          apr_table_t *G = NULL;
