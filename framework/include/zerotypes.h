@@ -3274,6 +3274,14 @@ public:
   floating=t->floating;
   c='\0';
  }
+ String( const char *a, const char *b ) {
+  s=string(a);
+  value=string(b);
+ }
+ String( const char *a, char *b, having noConstValue ) {
+  s=string(a);
+  value=string(b);
+ }
  String *Duplicate() { return new String(this); }
  String( const char *k, int i ) {
   integer=i;
