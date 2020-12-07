@@ -11,8 +11,6 @@ class GalvanicHandler {
     public:
         int RunHandler(request_rec *req) {
             if (!req->handler || module_name != req->handler) return DECLINED;
-
-            int main(int argc, char **argv ) {
             InitZeroTypesLibrary();
             Galvanic galvanic;
             int result=galvanic.ModuleHandler( req );
