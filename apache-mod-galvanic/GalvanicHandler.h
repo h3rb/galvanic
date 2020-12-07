@@ -4,6 +4,7 @@
 using std::string;
 
 #include "../framework/include/zerotypes.h"
+#include "../framework/include/galvanic.h"
 #undef DONE
 #include "http_protocol.h"
 
