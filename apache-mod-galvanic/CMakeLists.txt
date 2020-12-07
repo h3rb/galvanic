@@ -24,6 +24,13 @@ file(GLOB SOURCES ../framework/sources/*.cpp)
 
 include_directories("${PROJECT_SOURCE_DIR} ../framework/include")
 
+#Threading, sometimes causes issue with AWS if this isn't here.
+set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+set(CMAKE_HAVE_THREADS_LIBRARY 1)
+set(CMAKE_USE_WIN32_THREADS_INIT 0)
+set(CMAKE_USE_PTHREADS_INIT 1)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 #AWS
 find_package(AWSSDK REQUIRED COMPONENTS s3)
 Message(STATUS "AWSSDK_LIB_DIR ${AWSSDK_LIB_DIR}")
