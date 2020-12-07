@@ -4,7 +4,7 @@
 
 #include "GalvanicHandler.h"
 
-auto galvanicHandler = std::make_unique<GalvanicHandler>();
+std::unique_ptr<GalvanicHandler> galvanicHandler = std::make_unique<GalvanicHandler>();
 
 #ifdef __cplusplus
 extern "C"
