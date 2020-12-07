@@ -86,10 +86,20 @@ Using PHP-Galvanic, the PHP Wrapper Script
 
 While not preferred, it is possible to handle your incoming request in PHP first, then provide the data to Galvanic by use of the Command Line.  The file php-galvanic/example.php shows how you can use PHP to invoke Galvanic and get a response in JSON.
 
-How to use Galvanic as an Apache Module
+How to use Galvanic as an Apache 2.4+ Module
 =======================================
 
-TBD
+The apache-mod-galvanic folder contains a CMakeLists.txt that builds Galvanic as an apache module.  Request data is fed to Galvanic, and Galvanic is expected to produce a response string, usually in JSON, as output.  This string can be empty.
+
+First, build Galvanic as a command line tool.  Once this happens, use the apache-mod-galvanic configuration to build it as an apache2 module.
+
+To build:
+
+```
+ $ cd apache-mod-galvanic/build
+ $ cmake ..
+ $ make
+```
 
 
 Security Thoughts
