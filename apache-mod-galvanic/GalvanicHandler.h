@@ -33,11 +33,8 @@ class GalvanicHandler {
          apr_off_t len;
          apr_size_t size;
          int res;
-         int i = 0;
-         
          res = ap_parse_form_data(r, NULL, &pairs, -1, HUGE_STRING_LEN);
-         if (res != OK || !pairs) return NULL; /* Return NULL if we failed or if there are is no POST data */
-         kvp = apr_pcalloc(r->pool, sizeof(keyValuePair) * (pairs->nelts + 1));
+         if (res != OK || !pairs) return;
          while (pairs && !apr_is_empty_array(pairs)) {
              ap_form_pair_t *pair = (ap_form_pair_t *) apr_array_pop(pairs);
              apr_brigade_length(pair->value, 1, &len);
@@ -47,7 +44,6 @@ class GalvanicHandler {
              String *s=new String;
              s->s=string(pair->name);
              s->value = string(buff);
-             i++;
          }
         }
         void GetBody(request_rec *req) {
