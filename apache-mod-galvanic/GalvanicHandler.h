@@ -1,5 +1,7 @@
 #pragma once
 
+#define BLOCKSIZE 4096
+
 #include <string>
 using std::string;
 
