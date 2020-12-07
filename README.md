@@ -53,7 +53,7 @@ In other words:
 Usage
 =====
 
-## How to Invoke Galvanic From the Command Line
+### How to Invoke Galvanic From the Command Line
 
 The "galvanic" executable ends up in the build/ folder.  This can be placed elsewhere.  See 'Security Thoughts' for tips on where (not) to put it.
 
@@ -61,7 +61,7 @@ The order of command line operations is hard coded in include/commandline.h so i
 
 Once you have your executable, you'll want to try it out with some test inputs.
 
-### Command Line Options
+#### Command Line Options
 
 * help or -h 
 
@@ -70,7 +70,7 @@ To view this from the command line, invoke "Galvanic -h" or "Galvanic help", whi
 * settings=[/path/to/file.json]
 * request=[/path/to/file.json]
 
-## Using PHP-Galvanic, the PHP Wrapper Script
+### Using PHP-Galvanic, the PHP Wrapper Script
 
 While not preferred, it is possible to handle your incoming request in PHP first, then provide the data to Galvanic by use of the Command Line.  The file php-galvanic/example.php shows how you can use PHP to invoke Galvanic and get a response in JSON.
 
@@ -79,7 +79,7 @@ While not preferred, it is possible to handle your incoming request in PHP first
 Place the "galvanic" executable in an offline folder.  It's best not to directly install galvanic to a folder like /usr/bin, so that the placement of galvanic is not globally accessible.  You really only want galvanic running in its own space on your webserver, and nowhere that a web browser would be able to access.
 
 
-## How to use Galvanic as an Apache 2.4+ Module
+### How to use Galvanic as an Apache 2.4+ Module
 
 The apache-mod-galvanic folder contains a CMakeLists.txt that builds Galvanic as an apache module.  Request data is fed to Galvanic, and Galvanic is expected to produce a response string, usually in JSON, as output.  This string can be empty.  This layer occurs in GalvanicHandler, but is invoked through class Galvanic in Galvanic.h
 
@@ -101,6 +101,8 @@ How to Extend the Framework
 
 Note that this document discusses a framework that is a tabula rasa for creating a very fast API.  You will want to customize your galvanic code by adding
 additional API endpoints that are custom to your application's needs.
+
+More content will be put here once this part is ready.
 
 
 Cost and Data
@@ -129,7 +131,7 @@ Note that the SDKs on which Galvanic depends are updated all the time with incre
 
 If Galvanic's features are expanded, there is a chance that additional dependencies.
 
-## Version History
+### Version History
 
 Galvanic .5a is currently in development.  It will support S3 and MySQL databases, Session management and API requests in JSON.
 
