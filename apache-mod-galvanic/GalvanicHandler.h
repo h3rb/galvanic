@@ -33,7 +33,7 @@ class GalvanicHandler {
          apr_off_t len;
          apr_size_t size;
          int res;
-         res = ap_parse_form_data(r, NULL, &pairs, -1, HUGE_STRING_LEN);
+         res = ap_parse_form_data(req, NULL, &pairs, -1, HUGE_STRING_LEN);
          if (res != OK || !pairs) return;
          while (pairs && !apr_is_empty_array(pairs)) {
              ap_form_pair_t *pair = (ap_form_pair_t *) apr_array_pop(pairs);
